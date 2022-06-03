@@ -38,12 +38,15 @@
             </a>
             <div class="row g-3 align-items-center mt-1">
                 <div class="col-auto">
-                    <input
-                        type="search"
-                        placeholder="search..."
-                        id="inputPassword6"
-                        class="form-control"
-                        aria-describedby="passwordHelpInline"/>
+                    <form action="/laptop" method="GET">
+                        <input
+                            type="search"
+                            name="search"
+                            placeholder="search..."
+                            id="inputKeyword"
+                            class="form-control"
+                            aria-describedby="passwordHelpInline"/>
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -56,6 +59,7 @@
                             <th scope="col">Image</th>
                             <th scope="col">Tahun Produksi</th>
                             <th scope="col">Dibuat</th>
+                            <th scope="col">Diperbarui</th>
                             <th scope="col">Opsi</th>
                         </tr>
                     </thead>
@@ -76,6 +80,7 @@
                             </td>
                             <td>{{ $row->tahun_produksi }}</td>
                             <td>{{ $row->created_at->diffForHumans() }}</td>
+                            <td>{{ $row->updated_at->diffForHumans() }}</td>
                             <td>
                                 <a
                                     href="/ubahdata/{{ $row->id }}"

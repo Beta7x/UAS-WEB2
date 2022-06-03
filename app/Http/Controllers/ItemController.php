@@ -10,9 +10,14 @@ use Whoops\Run;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Item::all();
+        if ($request->has('search')) {
+            $data = Item::where('brand', 'LIKE', '%'.$request->search.'%')->paginate();
+        } else {
+            $data = Item::paginate();
+        }
+
         return view('datalaptop', compact('data'));
     }
 
@@ -51,10 +56,12 @@ class ItemController extends Controller
         return redirect()->route('laptop')->with('success', 'Data Berhasil Diperbarui');
     }
 
-    public function deletedata($id)
+    public function deletedata(Item $item, $id)
     {
+        CloudinaryStorageController::delete($item->image);
         $data = Item::find($id);
         $data->delete();
+        $item->delete();
         return redirect()->route('laptop')->with('success', 'Data Berhasil Dihapus');
     }
 
