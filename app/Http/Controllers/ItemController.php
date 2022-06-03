@@ -44,7 +44,7 @@ class ItemController extends Controller
     {
         // testing
         $data = Item::find($id);
-        $file = $request->files('image');
+        $file = $request->file('image');
         $result = CloudinaryStorageController::replace($item->image, $file->getRealPath(), $file->getClientOriginalName());
         $data->update($request->all());
         $data->update(['image' => $result]);
